@@ -34,6 +34,9 @@ class frameSwitcherForm(QtWidgets.QDialog):
         self.create_layout()
         self.create_connections()
 
+        self.main_window = maya_main_window()
+        self.main_window.installEventFilter(self)
+
     def create_widgets(self):
         self.instructionsLabel = QtWidgets.QLabel()
         self.instructionsLabel.setText(u"Use cursors:")
@@ -73,6 +76,7 @@ class frameSwitcherForm(QtWidgets.QDialog):
         self.plusButton.clicked.connect(self.addFrameToList)
         self.minusButton.clicked.connect(self.removeFrameFromList)
 
+
     def addFrameToList(self):
         items = []
 
@@ -96,6 +100,42 @@ class frameSwitcherForm(QtWidgets.QDialog):
     def removeFrameFromList(self):
         selectedRow = self.frameListWidget.currentRow()
         self.frameListWidget.takeItem(selectedRow)
+
+
+    def eventFilter(self, obj, event):
+        if obj == self.main_window:
+            if not self.isVisible():
+                return
+
+            if event.type() == QtCore.QEvent.KeyPress and event.key() == QtCore.Qt.Key_Left:
+                currentRow = self.frameListWidget.currentRow()
+
+                try:
+                    self.frameListWidget.setCurrentRow(currentRow - 1)
+                    newValue = self.frameListWidget.currentItem().text()
+                    cmds.currentTime( int(newValue), edit=True )
+                except:
+                    self.frameListWidget.setCurrentRow(self.frameListWidget.count()-1)
+                    newValue = self.frameListWidget.currentItem().text()
+                    cmds.currentTime( int(newValue), edit=True )
+
+                return True
+
+
+            if event.type() == QtCore.QEvent.KeyPress and event.key() == QtCore.Qt.Key_Right:
+                currentRow = self.frameListWidget.currentRow()
+                
+                try:
+                    self.frameListWidget.setCurrentRow(currentRow + 1)
+                    newValue = self.frameListWidget.currentItem().text()
+                    cmds.currentTime( int(newValue), edit=True )
+                except:
+                    self.frameListWidget.setCurrentRow(0)
+                    newValue = self.frameListWidget.currentItem().text()
+                    cmds.currentTime( int(newValue), edit=True )
+
+                return True
+        return False
 
 
 if __name__ == "__main__":
