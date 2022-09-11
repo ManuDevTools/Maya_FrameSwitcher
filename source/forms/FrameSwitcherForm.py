@@ -4,6 +4,7 @@ from PySide2 import QtCore
 from PySide2 import QtWidgets
 from shiboken2 import wrapInstance
 
+import maya.OpenMaya as om
 import maya.OpenMayaUI as omui
 import maya.cmds as cmds
 
@@ -15,8 +16,8 @@ def maya_main_window():
     main_window_ptr = omui.MQtUtil.mainWindow()
     if sys.version_info.major >= 3:
         return wrapInstance(int(main_window_ptr), QtWidgets.QWidget)
-
-    return wrapInstance(long(main_window_ptr), QtWidgets.QWidget)
+    else:
+        return wrapInstance(long(main_window_ptr), QtWidgets.QWidget)
 
 
 class FrameSwitcherForm(QtWidgets.QDialog):
@@ -125,7 +126,7 @@ class FrameSwitcherForm(QtWidgets.QDialog):
 
 
 
-    def event_filter(self, obj, event):
+    def eventFilter(self, obj, event):
         '''
         Qt even filter to catch if the left or right key is pressed.
         '''
