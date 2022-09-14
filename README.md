@@ -69,8 +69,6 @@ Feel free to use it and modify it as you need.
 If you've found it useful, please consider star the project or a fork.
 Thank you!
 
-Use the `BLANK_README.md` to get started.
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
