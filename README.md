@@ -85,7 +85,9 @@ Thank you!
 ## Usage
 
 You can follow the steps in the following video to get the tool working on your local computer. 
-[Documentation](https://example.com)_
+<div align="center">
+  <a href="https://www.youtube.com/watch?v=SL8Io166lXA"><img src="https://img.youtube.com/vi/SL8Io166lXA/0.jpg" alt="IMAGE ALT TEXT"></a>
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
